@@ -36,13 +36,13 @@ public class MovieControllerIntegrationTest {
         Movie movie = Movie.builder()
                 .title("title")
                 .runningTime(LocalTime.of(1, 30))
-                .amount(10000)
+                .price(10000)
                 .build();
 
         RegisterMovieRequestDto registerMovieRequest = RegisterMovieRequestDto.builder()
                 .title(movie.getTitle())
                 .runningTime(movie.getRunningTime())
-                .amount(movie.getAmount())
+                .price(movie.getPrice())
                 .build();
 
         String body = objectMapper.writeValueAsString(registerMovieRequest);
@@ -56,6 +56,6 @@ public class MovieControllerIntegrationTest {
                 .andExpect(jsonPath("$.movieId").exists())
                 .andExpect(jsonPath("$.movieTitle").value(movie.getTitle()))
                 .andExpect(jsonPath("$.movieRunningTime").value(runningTime))
-                .andExpect(jsonPath("$.movieAmount").value(movie.getAmount()));
+                .andExpect(jsonPath("$.movieAmount").value(movie.getPrice()));
     }
 }

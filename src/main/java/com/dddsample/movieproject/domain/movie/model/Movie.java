@@ -25,7 +25,7 @@ public class Movie extends BaseTimeEntity {
     private String title;
 
     @Column(nullable = false)
-    private Integer amount;
+    private Integer price;
 
     @Column(nullable = false)
     private LocalTime runningTime;

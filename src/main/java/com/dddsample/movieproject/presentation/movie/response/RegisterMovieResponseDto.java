@@ -19,6 +19,6 @@ public class RegisterMovieResponseDto {
         this.movieId = movie.getId();
         this.movieTitle = movie.getTitle();
         this.movieRunningTime = movie.getRunningTime();
-        this.movieAmount = movie.getAmount();
+        this.movieAmount = movie.getPrice();
     }
 }

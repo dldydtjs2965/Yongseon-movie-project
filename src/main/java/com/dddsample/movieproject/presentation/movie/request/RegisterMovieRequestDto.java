@@ -13,13 +13,13 @@ import java.time.LocalTime;
 public class RegisterMovieRequestDto {
     private String title;
     private LocalTime runningTime;
-    private Integer amount;
+    private Integer price;
 
     public Movie toEntity() {
         return Movie.builder()
                 .title(title)
                 .runningTime(runningTime)
-                .amount(amount)
+                .price(price)
                 .build();
     }
 }
