@@ -9,55 +9,8 @@
 ## 2. 도메인 설계
 ### 2.1. 도메인 모델
 ![img.png](images/img.png)
-### 2.2. 유비쿼터스 언어 정의
-**영화(Movie)**
-  - 등록: register
-  - 변경: update
-  - 영화 이름: movieName
-  - 가격: price
-  - 상영 시간: screenTime
+### 2.2. 유비쿼터스 언어 정의	
+[유비쿼터스 언어 정의 페이지](https://github.com/dldydtjs2965/Yongseon-movie-project/wiki/%EC%9C%A0%EB%B9%84-%EC%BF%BC%ED%84%B0%EC%8A%A4-%EC%96%B8%EC%96%B4-%EC%A0%95%EB%A6%AC#%EC%98%81%ED%99%94movie)
+### 2.3 도메인 요구사항 정리
+[도메인 별 요구사항 정리](https://github.com/dldydtjs2965/Yongseon-movie-project/wiki/%EB%8F%84%EB%A9%94%EC%9D%B8-%EB%B3%84-%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD-%EC%A0%95%EB%A6%AC#%ED%95%A0%EC%9D%B8discout)
 
-**결제(Payment)**
-- 결제: pay
-- 환불: refund
-- 결제 금액: paidAmount
-- 환불 금액: refundedAmount
-- 결제상태: paymentStatus
-- 금융사: financialCompany
-- 결제 날짜: paidAt
-- 환불 날짜: refundedAt
-  상영(Screen)
-  등록: regist
-  변경: update
-  조회: 보류(특정 요구사항에 맞춰야 하기 때문에 보류)
-  상영시작시간: startedAt
-  상영종료시간: endedAt
-  티켓수: tickets
-  예매(Ticketing)
-  예매하기: reserve
-  예매취소: cancel
-  예매일: reservedAt
-  예매상태: TicketingStatus
-  할인(Discout)
-  등록: regist
-  적용: apply
-  할인 영화: movieId
-  할인 조건: discountCodition
-  할인 정책: discountPolicy
-  할인 상태: discountStatus
-  적용일: appliedAt
-  할인된 금액: discountedAmount
-  할인 조건(discountCodition)
-  순서 조건: orderDiscountCondition
-  날짜 조건: periodDiscountCondition
-  순서값: orderConditionNumber
-  순서날짜: orderConditionDate
-  기간조건 시작날짜: discountConditionStartedAt
-  기간조건 종료날짜: discountConditionEndedAt
-  할인 아이디: discountId
-  할인 정책(discountPolicy)
-  금액할인: amountDiscount
-  비율할인: percentDiscount
-  할인금액: discountedAmount
-  할인비율: discountedPercent
-  할인아이디: discountId
