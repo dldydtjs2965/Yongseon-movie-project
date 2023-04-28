@@ -1,6 +1,6 @@
 package com.dddsample.movieproject.domain.movie.model;
 
-import com.dddsample.movieproject.common.BaseTimeEntity;
+import com.dddsample.movieproject.common.model.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

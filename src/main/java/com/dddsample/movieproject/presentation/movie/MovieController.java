@@ -4,6 +4,7 @@ import com.dddsample.movieproject.domain.movie.application.MovieService;
 import com.dddsample.movieproject.domain.movie.model.Movie;
 import com.dddsample.movieproject.presentation.movie.request.RegisterMovieRequestDto;
 import com.dddsample.movieproject.presentation.movie.response.RegisterMovieResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class MovieController {
 
     @PostMapping("")
     public ResponseEntity<RegisterMovieResponseDto> registerMovie (
-            @RequestBody RegisterMovieRequestDto registerMovieRequestDto
+            @RequestBody @Valid RegisterMovieRequestDto registerMovieRequestDto
     ) {
 
         Movie registeredMovie = movieService.register(registerMovieRequestDto.toEntity());
