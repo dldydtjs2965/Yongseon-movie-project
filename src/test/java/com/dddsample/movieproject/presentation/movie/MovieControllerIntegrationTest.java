@@ -1,5 +1,6 @@
 package com.dddsample.movieproject.presentation.movie;
 
+import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.domain.movie.model.Movie;
 import com.dddsample.movieproject.presentation.movie.request.RegisterMovieRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,16 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MovieControllerIntegrationTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+class MovieControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void 영화_등록() throws Exception{
@@ -50,13 +43,13 @@ class MovieControllerIntegrationTest {
                 .price(movie.getPrice())
                 .build();
 
-        String body = objectMapper.writeValueAsString(registerMovieRequest);
+        String payload = toJsonString(registerMovieRequest);
 
         String runningTime = movie.getRunningTime().format(DateTimeFormatter.ofPattern("HH:mm"));
 
         mockMvc.perform(post("/api/v1/movies")
                 .contentType("application/json")
-                .content(body))
+                .content(payload))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.movieId").exists())
                 .andExpect(jsonPath("$.movieTitle").value(movie.getTitle()))
@@ -74,11 +67,11 @@ class MovieControllerIntegrationTest {
                 .price(price)
                 .build();
 
-        String body = objectMapper.writeValueAsString(registerMovieRequest);
+        String payload = toJsonString(registerMovieRequest);
 
         mockMvc.perform(post("/api/v1/movies")
                 .contentType("application/json")
-                .content(body))
+                .content(payload))
                 .andExpect(status().isBadRequest());
     }
 
