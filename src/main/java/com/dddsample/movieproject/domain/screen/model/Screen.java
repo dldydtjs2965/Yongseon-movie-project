@@ -2,7 +2,6 @@ package com.dddsample.movieproject.domain.screen.model;
 
 import com.dddsample.movieproject.common.model.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,14 +21,16 @@ public class Screen extends BaseTimeEntity {
 
     private Long movieId;
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "tickets"))
+    @AttributeOverride(name = "value", column = @Column(name = "tickets", nullable = false))
     private Tickets tickets;
     @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "remained_tickets"))
+    @AttributeOverride(name = "value", column = @Column(name = "remained_tickets", nullable = false))
     private Tickets remainedTickets;
 
+    @Column(name = "started_at", nullable = false)
     private LocalDateTime startedAt;
 
+    @Column(name = "ended_at", nullable = false)
     private LocalDateTime endedAt;
 
     @Builder

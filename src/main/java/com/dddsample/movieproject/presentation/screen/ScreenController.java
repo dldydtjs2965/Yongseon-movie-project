@@ -5,6 +5,7 @@ import com.dddsample.movieproject.domain.screen.application.ScreenService;
 import com.dddsample.movieproject.domain.screen.model.Screen;
 import com.dddsample.movieproject.presentation.screen.request.RegisterScreenRequestDto;
 import com.dddsample.movieproject.presentation.screen.response.RegisterScreenResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ScreenController {
     @PostMapping("")
     public ResponseEntity registerScreen(
             @PathVariable("movieId")Movie movie,
-            @RequestBody RegisterScreenRequestDto registerScreenRequest
+            @RequestBody @Valid  RegisterScreenRequestDto registerScreenRequest
     ) {
 
         Screen newScreen = registerScreenRequest.toEntity(movie);
