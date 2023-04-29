@@ -1,6 +1,7 @@
 package com.dddsample.movieproject.domain.screen.model;
 
 import com.dddsample.movieproject.common.model.BaseTimeEntity;
+import com.dddsample.movieproject.exception.CustomException;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,5 +53,21 @@ public class Screen extends BaseTimeEntity {
         }
 
         this.endedAt = this.startedAt.plusSeconds(runningTime.toSecondOfDay());
+    }
+
+    public void checkStartedAt(LocalDateTime now) {
+        if (isTwentyFourHoursAgo(now)) {
+            return;
+        }
+
+        throw new CustomException(ScreenErrorCode.INVALID_STARTED_AT);
+    }
+
+    private Boolean isTwentyFourHoursAgo(LocalDateTime now) {
+        if (this.startedAt == null) {
+            throw new IllegalArgumentException("상영 시작 시간이 null 입니다.");
+        }
+
+        return this.startedAt.isBefore(now.minusHours(24));
     }
 }

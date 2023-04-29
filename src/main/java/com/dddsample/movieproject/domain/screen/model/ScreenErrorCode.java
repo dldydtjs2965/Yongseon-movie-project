@@ -1,0 +1,15 @@
+package com.dddsample.movieproject.domain.screen.model;
+
+import com.dddsample.movieproject.exception.ErrorCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@AllArgsConstructor
+public enum ScreenErrorCode implements ErrorCode {
+    INVALID_STARTED_AT(HttpStatus.BAD_REQUEST, "상영 시간이 올바르지 않습니다.");
+
+    private final HttpStatus httpStatus;
+    private final String detail;
+}
