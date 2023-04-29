@@ -46,12 +46,15 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
     void 상영_등록_성공() throws Exception {
         // given
         RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(LocalDateTime.of(2023, 4, 1, 12, 0))
+                .startedAt(LocalDateTime.of(2023, 4, 2, 12, 0))
                 .tickets(100)
                 .build();
         String payload = toJsonString(requestDto);
         LocalDateTime endedAt = requestDto.getStartedAt().plusSeconds(movie.getRunningTime().toSecondOfDay());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        when(currentDateTimeUtils.now())
+                .thenReturn(LocalDateTime.of(2023, 4, 1, 12, 0));
 
         // then
         mockMvc.perform(post("/api/v1/movies/" + movie.getId() + "/screens")
@@ -82,6 +85,15 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
+    private static Stream<Arguments> provideInvalidRegisterScreenRequestDto() {
+        return Stream.of(
+                Arguments.of(LocalDateTime.of(2023, 4, 1, 12, 0), 0),
+                Arguments.of(LocalDateTime.of(2023, 4, 1, 12, 0), -1),
+                Arguments.of(LocalDateTime.of(2023, 4, 1, 12, 0), null),
+                Arguments.of(null, 1000)
+        );
+    }
+
     @Test
     void 상영등록_하루전_등록_실패() throws Exception {
         // given
@@ -104,14 +116,5 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value(ScreenErrorCode.INVALID_STARTED_AT.getDetail()))
                 .andExpect(jsonPath("$.code").value(ScreenErrorCode.INVALID_STARTED_AT.name()));
-    }
-
-    private static Stream<Arguments> provideInvalidRegisterScreenRequestDto() {
-        return Stream.of(
-                Arguments.of(LocalDateTime.of(2023, 4, 1, 12, 0), 0),
-                Arguments.of(LocalDateTime.of(2023, 4, 1, 12, 0), -1),
-                Arguments.of(LocalDateTime.of(2023, 4, 1, 12, 0), null),
-                Arguments.of(null, 1000)
-        );
     }
 }
