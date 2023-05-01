@@ -1,10 +1,12 @@
 package com.dddsample.movieproject.domain.movie.infrastructure;
 
 import com.dddsample.movieproject.domain.movie.model.Movie;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.Repository;
 
-@Repository
-public interface MovieRepository extends JpaMovieRepository {
+import java.util.Optional;
 
-    Movie save(Movie movie);
+public interface MovieRepository extends Repository<Movie, Long> {
+        Optional<Movie> findById(Long id);
+
+        Movie save(Movie movie);
 }

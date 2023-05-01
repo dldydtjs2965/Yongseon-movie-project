@@ -56,14 +56,14 @@ public class Screen extends BaseTimeEntity {
     }
 
     public void checkStartedAt(LocalDateTime now) {
-        if (isTwentyFourHoursAfter(now)) {
+        if (startTimeTwentyFourHoursAfter(now)) {
             return;
         }
 
         throw new CustomException(ScreenErrorCode.INVALID_STARTED_AT);
     }
 
-    private Boolean isTwentyFourHoursAfter(LocalDateTime now) {
+    private boolean startTimeTwentyFourHoursAfter (LocalDateTime now) {
         if (this.startedAt == null) {
             throw new IllegalArgumentException("상영 시작 시간이 null 입니다.");
         }

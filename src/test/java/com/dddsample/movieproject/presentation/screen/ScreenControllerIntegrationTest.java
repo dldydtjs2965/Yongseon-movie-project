@@ -5,7 +5,10 @@ import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.common.utils.CurrentDateTimeUtils;
 import com.dddsample.movieproject.domain.movie.infrastructure.MovieRepository;
 import com.dddsample.movieproject.domain.movie.model.Movie;
+import com.dddsample.movieproject.domain.screen.infrastructure.ScreenRepository;
+import com.dddsample.movieproject.domain.screen.model.Screen;
 import com.dddsample.movieproject.domain.screen.model.ScreenErrorCode;
+import com.dddsample.movieproject.domain.screen.model.Tickets;
 import com.dddsample.movieproject.presentation.screen.request.RegisterScreenRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,10 +31,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private ScreenRepository screenRepository;
     @MockBean
     private CurrentDateTimeUtils currentDateTimeUtils;
     private Movie movie;
-
     private LocalDateTime now = LocalDateTime.of(2023, 4, 1, 12, 0);
     @BeforeEach
     void setUp() {
@@ -51,7 +55,7 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
     void 상영_등록_성공() throws Exception {
         // given
         RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(LocalDateTime.of(2023, 4, 2, 12, 0))
+                .startedAt(now.plusDays(1))
                 .tickets(100)
                 .build();
 
@@ -114,5 +118,58 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value(ScreenErrorCode.INVALID_STARTED_AT.getDetail()))
                 .andExpect(jsonPath("$.code").value(ScreenErrorCode.INVALID_STARTED_AT.name()));
+    }
+
+    @Test
+    void 시작시간_겹친_상영등록() throws Exception {
+        // given
+        saveScreen();
+
+        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
+                .startedAt(now.plusDays(2).plusHours(1))
+                .tickets(100)
+                .build();
+
+        String payload = toJsonString(requestDto);
+
+        // then
+        mockMvc.perform(post("/api/v1/movies/" + movie.getId() + "/screens")
+                        .contentType("application/json")
+                        .content(payload))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value(ScreenErrorCode.SCREENING_TIME_OVERLAP.getDetail()))
+                .andExpect(jsonPath("$.code").value(ScreenErrorCode.SCREENING_TIME_OVERLAP.name()));
+    }
+
+    @Test
+    void 종료시간_겹친_상영등록() throws Exception {
+        // given
+        saveScreen();
+
+        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
+                .startedAt(now.plusDays(2).minusHours(2))
+                .tickets(100)
+                .build();
+
+        String payload = toJsonString(requestDto);
+
+        // then
+        mockMvc.perform(post("/api/v1/movies/" + movie.getId() + "/screens")
+                        .contentType("application/json")
+                        .content(payload))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value(ScreenErrorCode.SCREENING_TIME_OVERLAP.getDetail()))
+                .andExpect(jsonPath("$.code").value(ScreenErrorCode.SCREENING_TIME_OVERLAP.name()));
+    }
+
+    void saveScreen() {
+        Screen newScreen = Screen.builder()
+                .movieId(movie.getId())
+                .runningTime(movie.getRunningTime())
+                .startedAt(now.plusDays(2))
+                .tickets(Tickets.of(100))
+                .build();
+
+        screenRepository.save(newScreen);
     }
 }
