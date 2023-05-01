@@ -31,6 +31,8 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
     @MockBean
     private CurrentDateTimeUtils currentDateTimeUtils;
     private Movie movie;
+
+    private LocalDateTime now = LocalDateTime.of(2023, 4, 1, 12, 0);
     @BeforeEach
     void setUp() {
         movie = Movie.builder()
@@ -40,6 +42,9 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
                 .build();
 
         movie = movieRepository.save(movie);
+
+        when(currentDateTimeUtils.now())
+                .thenReturn(now);
     }
 
     @Test
@@ -49,12 +54,10 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
                 .startedAt(LocalDateTime.of(2023, 4, 2, 12, 0))
                 .tickets(100)
                 .build();
+
         String payload = toJsonString(requestDto);
         LocalDateTime endedAt = requestDto.getStartedAt().plusSeconds(movie.getRunningTime().toSecondOfDay());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        when(currentDateTimeUtils.now())
-                .thenReturn(LocalDateTime.of(2023, 4, 1, 12, 0));
 
         // then
         mockMvc.perform(post("/api/v1/movies/" + movie.getId() + "/screens")
@@ -97,7 +100,6 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
     @Test
     void 상영등록_하루전_등록_실패() throws Exception {
         // given
-        LocalDateTime now = LocalDateTime.of(2023, 4, 1, 12, 0);
 
         RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
                 .startedAt(now.minusHours(1))
@@ -105,10 +107,6 @@ public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
                 .build();
 
         String payload = toJsonString(requestDto);
-
-        when(currentDateTimeUtils.now())
-                .thenReturn(now);
-
 
         mockMvc.perform(post("/api/v1/movies/" + movie.getId() + "/screens")
                         .contentType("application/json")
