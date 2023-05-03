@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.presentation.screen.response;
+package com.dddsample.movieproject.screen.response;
 
 import com.dddsample.movieproject.domain.screen.model.Screen;
 import com.fasterxml.jackson.annotation.JsonFormat;

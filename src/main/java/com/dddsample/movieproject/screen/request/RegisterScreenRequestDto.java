@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.presentation.screen.request;
+package com.dddsample.movieproject.screen.request;
 
 import com.dddsample.movieproject.domain.movie.model.Movie;
 import com.dddsample.movieproject.domain.screen.model.Screen;

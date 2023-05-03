@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.presentation.screen;
+package com.dddsample.movieproject.domain.screen;
 
 
 import com.dddsample.movieproject.BaseIntegrationTest;
@@ -9,7 +9,7 @@ import com.dddsample.movieproject.domain.screen.infrastructure.ScreenRepository;
 import com.dddsample.movieproject.domain.screen.model.Screen;
 import com.dddsample.movieproject.domain.screen.model.ScreenErrorCode;
 import com.dddsample.movieproject.domain.screen.model.Tickets;
-import com.dddsample.movieproject.presentation.screen.request.RegisterScreenRequestDto;
+import com.dddsample.movieproject.screen.request.RegisterScreenRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ScreenControllerIntegrationTest extends BaseIntegrationTest {
+public class ScreenIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private MovieRepository movieRepository;
     @Autowired

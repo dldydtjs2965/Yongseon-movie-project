@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.presentation.movie;
+package com.dddsample.movieproject.domain.movie;
 
 import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.domain.movie.model.Movie;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-class MovieControllerIntegrationTest extends BaseIntegrationTest {
+class MovieIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void 영화_등록() throws Exception{
