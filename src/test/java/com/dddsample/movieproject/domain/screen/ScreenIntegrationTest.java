@@ -5,11 +5,12 @@ import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.common.utils.CurrentDateTimeUtils;
 import com.dddsample.movieproject.domain.movie.infrastructure.MovieRepository;
 import com.dddsample.movieproject.domain.movie.model.Movie;
+import com.dddsample.movieproject.domain.movie.model.Money;
 import com.dddsample.movieproject.domain.screen.infrastructure.ScreenRepository;
 import com.dddsample.movieproject.domain.screen.model.Screen;
 import com.dddsample.movieproject.domain.screen.model.ScreenErrorCode;
 import com.dddsample.movieproject.domain.screen.model.Tickets;
-import com.dddsample.movieproject.screen.request.RegisterScreenRequestDto;
+import com.dddsample.movieproject.presentation.screen.request.RegisterScreenRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,7 +43,7 @@ public class ScreenIntegrationTest extends BaseIntegrationTest {
         movie = Movie.builder()
                 .title("영화1")
                 .runningTime(LocalTime.of(2, 30))
-                .price(10000)
+                .price(Money.of(10000))
                 .build();
 
         movie = movieRepository.save(movie);

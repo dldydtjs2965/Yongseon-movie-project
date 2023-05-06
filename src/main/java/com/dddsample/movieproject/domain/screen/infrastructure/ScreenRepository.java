@@ -2,7 +2,6 @@ package com.dddsample.movieproject.domain.screen.infrastructure;
 
 import com.dddsample.movieproject.domain.screen.model.Screen;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
 import java.time.LocalDateTime;

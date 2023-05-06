@@ -2,6 +2,7 @@ package com.dddsample.movieproject.domain.movie;
 
 import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.domain.movie.model.Movie;
+import com.dddsample.movieproject.domain.movie.model.Money;
 import com.dddsample.movieproject.presentation.movie.request.RegisterMovieRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,13 +26,13 @@ class MovieIntegrationTest extends BaseIntegrationTest {
         Movie movie = Movie.builder()
                 .title("title")
                 .runningTime(LocalTime.of(1, 30))
-                .price(10000)
+                .price(Money.of(10000))
                 .build();
 
         RegisterMovieRequestDto registerMovieRequest = RegisterMovieRequestDto.builder()
                 .title(movie.getTitle())
                 .runningTime(movie.getRunningTime())
-                .price(movie.getPrice())
+                .price(movie.getPrice().getValue())
                 .build();
 
         String payload = toJsonString(registerMovieRequest);

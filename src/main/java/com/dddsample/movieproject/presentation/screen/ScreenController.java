@@ -1,10 +1,10 @@
-package com.dddsample.movieproject.screen;
+package com.dddsample.movieproject.presentation.screen;
 
 import com.dddsample.movieproject.domain.movie.model.Movie;
 import com.dddsample.movieproject.domain.screen.application.ScreenService;
 import com.dddsample.movieproject.domain.screen.model.Screen;
-import com.dddsample.movieproject.screen.request.RegisterScreenRequestDto;
-import com.dddsample.movieproject.screen.response.RegisterScreenResponseDto;
+import com.dddsample.movieproject.presentation.screen.request.RegisterScreenRequestDto;
+import com.dddsample.movieproject.presentation.screen.response.RegisterScreenResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

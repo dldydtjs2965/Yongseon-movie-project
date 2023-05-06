@@ -6,12 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalTime;
 
 @Entity
 @Getter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "movie")
@@ -24,8 +25,9 @@ public class Movie extends BaseTimeEntity {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false)
-    private Integer price;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "price", nullable = false))
+    private Money price;
 
     @Column(nullable = false)
     private LocalTime runningTime;

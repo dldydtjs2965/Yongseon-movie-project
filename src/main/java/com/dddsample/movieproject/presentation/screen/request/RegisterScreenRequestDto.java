@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.screen.request;
+package com.dddsample.movieproject.presentation.screen.request;
 
 import com.dddsample.movieproject.domain.movie.model.Movie;
 import com.dddsample.movieproject.domain.screen.model.Screen;
@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,9 @@ public class RegisterScreenRequestDto {
     @Min(1)
     @NotNull
     private Integer tickets;
+
+    @Nullable
+
 
     public Screen toEntity(Movie movie) {
         return Screen.builder()

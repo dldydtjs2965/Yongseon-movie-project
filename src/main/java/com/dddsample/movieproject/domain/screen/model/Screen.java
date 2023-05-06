@@ -3,9 +3,11 @@ package com.dddsample.movieproject.domain.screen.model;
 import com.dddsample.movieproject.common.model.BaseTimeEntity;
 import com.dddsample.movieproject.exception.CustomException;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,6 +15,8 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
+@SuperBuilder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "screen")
 public class Screen extends BaseTimeEntity {
