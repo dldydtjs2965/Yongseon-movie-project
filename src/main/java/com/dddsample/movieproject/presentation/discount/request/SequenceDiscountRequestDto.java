@@ -2,6 +2,7 @@ package com.dddsample.movieproject.presentation.discount.request;
 
 import com.dddsample.movieproject.domain.discount.model.SequenceDiscount;
 import com.dddsample.movieproject.domain.discount.model.enumberable.DiscountStatus;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class SequenceDiscountRequestDto {
     @NotNull
     private LocalDate discountBaseDate;
 
-    @NotNull
+    @Valid
     private DiscountPolicyRequestDto discountPolicy;
 
     public SequenceDiscount toEntity() {

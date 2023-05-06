@@ -57,4 +57,40 @@ public class DiscountIntegrationTest extends BaseIntegrationTest {
                 )
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("할인_값_유효성_검사_파라미터")
+    void 할인_값_유효성_검사(SequenceDiscountRequestDto sequenceDiscountRequestDto) throws Exception {
+        String payload = toJsonString(sequenceDiscountRequestDto);
+
+        mockMvc.perform(post("/api/v1/discounts/sequence")
+                .contentType("application/json")
+                .content(payload))
+                .andExpect(status().isBadRequest());
+    }
+
+    private static Stream<Arguments> 할인_값_유효성_검사_파라미터() {
+        return Stream.of(
+                Arguments.of(
+                        SequenceDiscountRequestDto.builder()
+                                .discountSequence(1)
+                                .discountBaseDate(baseDate)
+                                .discountPolicy(DiscountPolicyRequestDto.builder()
+                                        .discountValue(0)
+                                        .discountPolicyType(DiscountPolicyType.AMOUNT)
+                                        .build())
+                                .build()
+                ),
+                Arguments.of(
+                        SequenceDiscountRequestDto.builder()
+                                .discountSequence(2)
+                                .discountBaseDate(baseDate)
+                                .discountPolicy(DiscountPolicyRequestDto.builder()
+                                        .discountValue(101)
+                                        .discountPolicyType(DiscountPolicyType.PERCENT)
+                                        .build())
+                                .build()
+                )
+        );
+    }
 }
