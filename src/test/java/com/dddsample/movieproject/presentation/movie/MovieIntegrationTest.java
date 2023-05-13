@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.domain.movie;
+package com.dddsample.movieproject.presentation.movie;
 
 import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.domain.movie.model.Movie;

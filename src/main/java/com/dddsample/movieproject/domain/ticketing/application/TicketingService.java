@@ -16,11 +16,12 @@ public class TicketingService {
     private final ReserveScreenService reserveScreenService;
 
     @Transactional
-    public Ticketing ticketing(Ticketing ticketing, Payment payment) {
-        Ticketing savedTicketing = ticketingRepository.save(ticketing);
-
-        Money screenPrice = reserveScreenService.reserve(ticketing);
+    public Ticketing ticketing(Long screenId, Payment payment) {
 
         return null;
+    }
+
+    @Transactional
+    public void refund(Long ticketingId) {
     }
 }

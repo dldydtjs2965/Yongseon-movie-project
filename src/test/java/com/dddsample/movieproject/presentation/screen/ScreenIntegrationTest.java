@@ -1,4 +1,4 @@
-package com.dddsample.movieproject.domain.screen;
+package com.dddsample.movieproject.presentation.screen;
 
 
 import com.dddsample.movieproject.BaseIntegrationTest;

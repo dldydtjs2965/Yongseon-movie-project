@@ -1,11 +1,10 @@
-package com.dddsample.movieproject.domain.discount;
+package com.dddsample.movieproject.presentation.discount;
 
 import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.domain.discount.application.SequenceDiscountService;
 import com.dddsample.movieproject.domain.discount.model.DiscountErrorCode;
 import com.dddsample.movieproject.domain.discount.model.enumberable.DiscountPolicyType;
 import com.dddsample.movieproject.exception.CustomException;
-import com.dddsample.movieproject.exception.ErrorCode;
 import com.dddsample.movieproject.presentation.discount.request.DiscountPolicyRequestDto;
 import com.dddsample.movieproject.presentation.discount.request.SequenceDiscountRequestDto;
 import org.junit.jupiter.api.Test;
