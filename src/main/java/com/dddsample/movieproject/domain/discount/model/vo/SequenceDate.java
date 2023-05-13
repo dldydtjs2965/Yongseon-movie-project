@@ -1,11 +1,13 @@
 package com.dddsample.movieproject.domain.discount.model.vo;
 
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Getter
 @Embeddable
 @RequiredArgsConstructor
 public class SequenceDate {

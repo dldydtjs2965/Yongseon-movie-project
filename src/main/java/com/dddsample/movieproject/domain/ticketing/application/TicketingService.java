@@ -21,6 +21,6 @@ public class TicketingService {
 
         Money screenPrice = reserveScreenService.reserve(ticketing);
 
-        return ;
+        return null;
     }
 }

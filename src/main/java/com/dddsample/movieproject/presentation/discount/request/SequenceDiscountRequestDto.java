@@ -1,6 +1,7 @@
 package com.dddsample.movieproject.presentation.discount.request;
 
 import com.dddsample.movieproject.domain.discount.model.SequenceDiscount;
+import com.dddsample.movieproject.domain.discount.model.vo.SequenceDate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -29,8 +30,7 @@ public class SequenceDiscountRequestDto {
 
     public SequenceDiscount toEntity() {
         SequenceDiscount sequenceDiscount =  SequenceDiscount.builder()
-                .sequence(discountSequence)
-                .discountBaseDate(discountBaseDate)
+                .sequenceDate(SequenceDate.of(discountSequence, discountBaseDate))
                 .build();
 
         sequenceDiscount.updateDiscountPolicy(discountPolicy.toEntity(sequenceDiscount));

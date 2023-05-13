@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class SequenceDiscountResponseDto {
     private Long discountId;
 
-    private String sequence;
+    private Integer sequence;
 
     private LocalDate discountBaseDate;
 
@@ -18,7 +18,7 @@ public class SequenceDiscountResponseDto {
     public SequenceDiscountResponseDto(SequenceDiscount sequenceDiscount) {
         this.discountId = sequenceDiscount.getId();
         this.sequence = sequenceDiscount.getSequence();
-        this.discountBaseDate = sequenceDiscount.getDiscountBaseDate();
+        this.discountBaseDate = sequenceDiscount.getDiscountDate();
         this.discountPolicy = new DiscountPolicyResponseDto(sequenceDiscount.getDiscountPolicy());
     }
 }

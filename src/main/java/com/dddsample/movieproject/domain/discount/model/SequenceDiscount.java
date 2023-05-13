@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @Getter
 @Entity
 @SuperBuilder
@@ -22,4 +24,12 @@ public class SequenceDiscount extends Discount{
             @AttributeOverride(name = "discountDate", column = @jakarta.persistence.Column(name = "discount_date"))
     })
     private SequenceDate sequenceDate;
+
+    public Integer getSequence() {
+        return sequenceDate.getSequence();
+    }
+
+    public LocalDate getDiscountDate() {
+        return sequenceDate.getDiscountDate();
+    }
 }
