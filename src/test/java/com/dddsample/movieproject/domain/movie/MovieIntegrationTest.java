@@ -2,7 +2,7 @@ package com.dddsample.movieproject.domain.movie;
 
 import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.domain.movie.model.Movie;
-import com.dddsample.movieproject.domain.movie.model.Money;
+import com.dddsample.movieproject.common.model.Money;
 import com.dddsample.movieproject.presentation.movie.request.RegisterMovieRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

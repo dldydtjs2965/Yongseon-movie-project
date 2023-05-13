@@ -13,7 +13,6 @@ import org.springframework.lang.Nullable;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
 @AllArgsConstructor
 public class RegisterScreenRequestDto {
     @NotNull
@@ -21,8 +20,6 @@ public class RegisterScreenRequestDto {
     @Min(1)
     @NotNull
     private Integer tickets;
-
-    @Nullable
 
 
     public Screen toEntity(Movie movie) {

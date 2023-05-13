@@ -1,9 +1,11 @@
 package com.dddsample.movieproject.domain.discount.model;
 
 import com.dddsample.movieproject.common.model.BaseTimeEntity;
+import com.dddsample.movieproject.common.model.Money;
 import com.dddsample.movieproject.domain.discount.model.enumberable.DiscountPolicyType;
-import com.dddsample.movieproject.domain.discount.model.vo.Amount;
-import com.dddsample.movieproject.domain.discount.model.vo.PercentAmount;
+import com.dddsample.movieproject.domain.discount.model.vo.ScreenAmount;
+import com.dddsample.movieproject.domain.discount.model.vo.ScreenPercent;
+import com.dddsample.movieproject.exception.CustomException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,25 +29,25 @@ public class DiscountPolicy extends BaseTimeEntity {
 
     @Embedded
     @AttributeOverride(name = "value", column = @Column(name = "amount"))
-    private Amount amount;
+    private ScreenAmount screenAmount;
 
     @Embedded
     @AttributeOverride(name = "percent", column = @Column(name = "percent"))
-    private PercentAmount percent;
+    private ScreenPercent percent;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "policy_type", nullable = false)
     private DiscountPolicyType policyType;
 
-    public static DiscountPolicy ofAmount(Amount amount, Discount discount) {
+    public static DiscountPolicy ofAmount(ScreenAmount screenAmount, Discount discount) {
         return DiscountPolicy.builder()
-                .amount(amount)
+                .screenAmount(screenAmount)
                 .discount(discount)
                 .policyType(DiscountPolicyType.AMOUNT)
                 .build();
     }
 
-    public static DiscountPolicy ofPercent(PercentAmount percent, Discount discount) {
+    public static DiscountPolicy ofPercent(ScreenPercent percent, Discount discount) {
         return DiscountPolicy.builder()
                 .percent(percent)
                 .discount(discount)
@@ -56,9 +58,22 @@ public class DiscountPolicy extends BaseTimeEntity {
     public Integer getDiscountValue() {
         switch (this.policyType) {
             case AMOUNT:
-                return amount.getValue();
+                return screenAmount.getValue();
             case PERCENT:
                 return percent.getPercent();
+        }
+
+        throw new IllegalArgumentException("잘못된 할인 정책입니다.");
+    }
+
+    public Money calculateDiscount(Money amount) {
+        switch (this.policyType) {
+            case AMOUNT:
+                if (amount.isLessThan(amount))
+                    throw new CustomException(DiscountErrorCode.OVER_DISCOUNT_AMOUNT);
+                return amount.minus(screenAmount.toMoney());
+            case PERCENT:
+                return amount.minus(amount.timesPercent(percent.getPercent()));
         }
 
         throw new IllegalArgumentException("잘못된 할인 정책입니다.");

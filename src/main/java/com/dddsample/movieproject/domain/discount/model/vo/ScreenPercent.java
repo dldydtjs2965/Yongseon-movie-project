@@ -7,20 +7,20 @@ import lombok.Getter;
 
 @Getter
 @Embeddable
-public class PercentAmount {
+public class ScreenPercent {
     private final Integer percent;
 
-    private PercentAmount(Integer value) {
+    private ScreenPercent(Integer value) {
         this.percent = value;
     }
 
-    public PercentAmount() {
+    public ScreenPercent() {
         this.percent = 0;
     }
 
-    public static PercentAmount of(Integer percent) {
+    public static ScreenPercent of(Integer percent) {
         if (percent < 0 || percent > 100) throw new CustomException(DiscountErrorCode.PERCENT_AMOUNT_INVALID);
 
-        return new PercentAmount(percent);
+        return new ScreenPercent(percent);
     }
 }

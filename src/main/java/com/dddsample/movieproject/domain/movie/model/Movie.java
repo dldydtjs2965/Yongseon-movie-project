@@ -1,9 +1,9 @@
 package com.dddsample.movieproject.domain.movie.model;
 
 import com.dddsample.movieproject.common.model.BaseTimeEntity;
+import com.dddsample.movieproject.common.model.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -31,4 +31,8 @@ public class Movie extends BaseTimeEntity {
 
     @Column(nullable = false)
     private LocalTime runningTime;
+
+    public Money getPayAmount(Integer count) {
+        return this.price.multiply(count);
+    }
 }

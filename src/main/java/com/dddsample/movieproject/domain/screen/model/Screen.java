@@ -9,8 +9,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 
 @Entity
@@ -41,9 +43,9 @@ public class Screen extends BaseTimeEntity {
     @Builder
     public Screen(Long movieId, LocalTime runningTime, Tickets tickets, LocalDateTime startedAt) {
         this.movieId = movieId;
-        this.tickets = tickets;
         this.startedAt = startedAt;
-        this.remainedTickets = Tickets.zeroTickets();
+        this.tickets = tickets;
+        this.remainedTickets = tickets;
         setEndedAt(runningTime);
     }
 
@@ -75,5 +77,39 @@ public class Screen extends BaseTimeEntity {
         LocalDateTime twentyFourHoursAfter = now.plusDays(1);
 
         return this.startedAt.isAfter(twentyFourHoursAfter) || this.startedAt.isEqual(twentyFourHoursAfter);
+    }
+
+    public void reserveTicket() {
+        if (this.remainedTickets.isEnough(1)) {
+            this.remainedTickets.minus(1);
+            return;
+        }
+
+        throw new CustomException(ScreenErrorCode.NOT_ENOUGH_TICKETS);
+    }
+
+    public LocalDateTime getStartedAtZero() {
+        return this.startedAt.toLocalDate().atStartOfDay();
+    }
+
+    public LocalDateTime getStartedAtTwentyFour() {
+        return this.startedAt.toLocalDate().atTime(LocalTime.MAX);
+    }
+
+    public LocalDate getScreeningDate() {
+        return this.startedAt.toLocalDate();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Screen screen = (Screen) o;
+        return Objects.equals(id, screen.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

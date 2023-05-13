@@ -18,7 +18,11 @@ public class Tickets {
         return new Tickets(value);
     }
 
-    public static Tickets zeroTickets() {
-        return new Tickets(0);
+    public void minus(Integer tickets) {
+        this.value -= tickets;
+    }
+
+    public boolean isEnough(Integer tickets) {
+        return this.value >= tickets;
     }
 }

@@ -5,7 +5,7 @@ import com.dddsample.movieproject.BaseIntegrationTest;
 import com.dddsample.movieproject.common.utils.CurrentDateTimeUtils;
 import com.dddsample.movieproject.domain.movie.infrastructure.MovieRepository;
 import com.dddsample.movieproject.domain.movie.model.Movie;
-import com.dddsample.movieproject.domain.movie.model.Money;
+import com.dddsample.movieproject.common.model.Money;
 import com.dddsample.movieproject.domain.screen.infrastructure.ScreenRepository;
 import com.dddsample.movieproject.domain.screen.model.Screen;
 import com.dddsample.movieproject.domain.screen.model.ScreenErrorCode;
@@ -55,10 +55,7 @@ public class ScreenIntegrationTest extends BaseIntegrationTest {
     @Test
     void 상영_등록_성공() throws Exception {
         // given
-        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(now.plusDays(1))
-                .tickets(100)
-                .build();
+        RegisterScreenRequestDto requestDto = new RegisterScreenRequestDto(now.plusDays(1), 100);
 
         String payload = toJsonString(requestDto);
         LocalDateTime endedAt = requestDto.getStartedAt().plusSeconds(movie.getRunningTime().toSecondOfDay());
@@ -80,10 +77,7 @@ public class ScreenIntegrationTest extends BaseIntegrationTest {
     @ParameterizedTest
     @MethodSource("provideInvalidRegisterScreenRequestDto")
     void 상영등록_값검증_실패(LocalDateTime startedAt, Integer tickets) throws Exception {
-        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(startedAt)
-                .tickets(tickets)
-                .build();
+        RegisterScreenRequestDto requestDto = new RegisterScreenRequestDto(startedAt, tickets);
 
         String payload = toJsonString(requestDto);
 
@@ -106,10 +100,7 @@ public class ScreenIntegrationTest extends BaseIntegrationTest {
     void 상영등록_하루전_등록_실패() throws Exception {
         // given
 
-        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(now.minusHours(1))
-                .tickets(100)
-                .build();
+        RegisterScreenRequestDto requestDto = new RegisterScreenRequestDto(now.minusHours(1), 100);
 
         String payload = toJsonString(requestDto);
 
@@ -126,10 +117,7 @@ public class ScreenIntegrationTest extends BaseIntegrationTest {
         // given
         saveScreen();
 
-        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(now.plusDays(2).plusHours(1))
-                .tickets(100)
-                .build();
+        RegisterScreenRequestDto requestDto = new RegisterScreenRequestDto(now.plusDays(2).plusHours(1), 100);
 
         String payload = toJsonString(requestDto);
 
@@ -147,10 +135,7 @@ public class ScreenIntegrationTest extends BaseIntegrationTest {
         // given
         saveScreen();
 
-        RegisterScreenRequestDto requestDto = RegisterScreenRequestDto.builder()
-                .startedAt(now.plusDays(2).minusHours(2))
-                .tickets(100)
-                .build();
+        RegisterScreenRequestDto requestDto = new RegisterScreenRequestDto(now.plusDays(2).minusHours(2), 100);
 
         String payload = toJsonString(requestDto);
 

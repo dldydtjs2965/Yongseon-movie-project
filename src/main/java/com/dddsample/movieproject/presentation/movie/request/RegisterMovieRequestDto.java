@@ -1,7 +1,7 @@
 package com.dddsample.movieproject.presentation.movie.request;
 
 import com.dddsample.movieproject.common.validator.AfterTime;
-import com.dddsample.movieproject.domain.movie.model.Money;
+import com.dddsample.movieproject.common.model.Money;
 import com.dddsample.movieproject.domain.movie.model.Movie;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
 package com.dddsample.movieproject.domain.discount.model;
 
 import com.dddsample.movieproject.common.model.BaseTimeEntity;
-import com.dddsample.movieproject.domain.discount.model.enumberable.DiscountStatus;
+import com.dddsample.movieproject.common.model.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,9 +23,6 @@ public class Discount extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Enumerated(value = EnumType.STRING)
-    private DiscountStatus discountStatus;
-
     private LocalDateTime appliedAt;
 
     @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL, optional = false, orphanRemoval = true, mappedBy = "discount")
@@ -33,5 +30,9 @@ public class Discount extends BaseTimeEntity {
 
     public void updateDiscountPolicy(DiscountPolicy discountPolicy) {
         this.discountPolicy = discountPolicy;
+    }
+
+    public Money discountAmount(Money amount) {
+        return discountPolicy.calculateDiscount(amount);
     }
 }
