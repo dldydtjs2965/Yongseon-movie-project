@@ -48,4 +48,8 @@ public class Money {
 
         return new Money(this.value * percent / 100);
     }
+
+    public boolean isGreaterThanOrEqual(Money other) {
+        return this.value >= other.value;
+    }
 }

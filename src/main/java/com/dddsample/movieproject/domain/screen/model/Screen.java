@@ -79,9 +79,9 @@ public class Screen extends BaseTimeEntity {
         return this.startedAt.isAfter(twentyFourHoursAfter) || this.startedAt.isEqual(twentyFourHoursAfter);
     }
 
-    public void reserveTicket() {
-        if (this.remainedTickets.isEnough(1)) {
-            this.remainedTickets.minus(1);
+    public void reserveTicket(Tickets tickets) {
+        if (this.remainedTickets.isEnough(tickets)) {
+            this.remainedTickets.minus(tickets);
             return;
         }
 

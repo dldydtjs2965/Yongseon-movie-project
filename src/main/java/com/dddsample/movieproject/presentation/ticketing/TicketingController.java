@@ -1,6 +1,7 @@
 package com.dddsample.movieproject.presentation.ticketing;
 
 import com.dddsample.movieproject.domain.ticketing.application.TicketingService;
+import com.dddsample.movieproject.domain.user.service.UserDetailsProvider;
 import com.dddsample.movieproject.presentation.ticketing.request.TicketingRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class TicketingController {
 
     private final TicketingService ticketingService;
-
+    private final UserDetailsProvider userDetailsProvider;
     @PostMapping("")
     public ResponseEntity ticketing(@PathVariable Long screeningId, @RequestBody @Valid TicketingRequestDto ticketingRequest) {
-        ticketingService.ticketing(screeningId, ticketingRequest.getPayment().toEntity());
+
         return ResponseEntity.ok().build();
     }
 
